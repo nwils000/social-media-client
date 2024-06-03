@@ -1,35 +1,34 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom/client'
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
-} from 'react-router-dom'
+import React, { useReducer, createContext } from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
 // project styles
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/index.css';
 
-import App from './App'
-import ErrorPage from './ErrorPage'
-import Header from './Header'
-import Footer from './Footer'
-import Login from './Login'
-import { AuthContext } from './context'
-
+import LandingPage from './components/LandingPage';
+import ErrorPage from './components/ErrorPage';
+import Footer from './components/Footer';
+import Login from './components/Login';
+import Register from './components/Register';
+import {
+  initialProfileState,
+  profileReducer,
+} from './reducers/profile-reducer';
+import { AuthContext } from './context';
 
 function Layout() {
   return (
     <>
-      <Header />
-        <div id='page-content'>
+      <div style={{ minHeight: '100vh' }}>
+        <div id="page-content">
           <Outlet />
         </div>
-      <Footer />
+        <Footer />
+      </div>
     </>
-  )
+  );
 }
-
 
 const router = createBrowserRouter([
   {
@@ -38,33 +37,37 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <App />
+        element: <LandingPage />,
       },
       {
         path: '/login',
-        element: <Login />
+        element: <Login />,
       },
-    ]
-  }
-])
+      {
+        path: '/register',
+        element: <Register />,
+      },
+    ],
+  },
+]);
 
 const AuthContextProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState(undefined)
-  
-  const auth = {
-    accessToken,
-    setAccessToken,
-  }
+  const [state, dispatch] = useReducer(profileReducer, initialProfileState);
 
-  return(
-    <AuthContext.Provider value={{ auth: auth }} >
+  const auth = {
+    state,
+    dispatch,
+  };
+
+  return (
+    <AuthContext.Provider value={{ auth: auth }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthContextProvider>
     <RouterProvider router={router} />
   </AuthContextProvider>
-)
+);

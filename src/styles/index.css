@@ -43,7 +43,6 @@ a {
   text-decoration: none;
   font-weight: 700;
   position: relative;
-  opacity: 0.75;
   transition: 300ms;
 }
 
@@ -55,8 +54,13 @@ a::before {
 
 a:hover {
   cursor: pointer;
-  opacity: 1;
+  color: rgb(255, 0, 111);
+
   text-decoration: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 img {

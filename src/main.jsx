@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
 // project styles
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/index.css';
 
 import LandingPage from './components/LandingPage';
@@ -17,6 +16,7 @@ import {
   profileReducer,
 } from './reducers/profile-reducer';
 import { AuthContext } from './context';
+import Profile from './components/Profile';
 
 function Layout() {
   return (
@@ -51,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/feed',
         element: <Feed />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
     ],
   },

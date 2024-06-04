@@ -1,0 +1,28 @@
+.profile-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, max-content));
+  grid-template-rows: repeat(auto-fit, minmax(20rem, max-content));
+  gap: 3px;
+  max-width: calc(3 * 20rem + 2 * 3px);
+  margin: auto;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-post-card:hover {
+  cursor: pointer;
+}
+
+@media (max-width: calc(3 * 20rem + 2 * 3px)) {
+  .profile-posts-grid {
+    grid-template-columns: repeat(2, 20rem);
+  }
+}
+
+@media (max-width: calc(2 * 20rem + 2 * 3px)) {
+  .profile-posts-grid {
+    grid-template-columns: repeat(1, 20rem);
+  }
+}

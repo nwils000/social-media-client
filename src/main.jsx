@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ import {
   profileReducer,
 } from './reducers/profile-reducer';
 import { AuthContext } from './context';
+import { CreatePostContext } from './context';
 import Profile from './components/Profile';
 
 function Layout() {
@@ -60,6 +61,18 @@ const router = createBrowserRouter([
   },
 ]);
 
+const CreatePostContextProvider = ({ children }) => {
+  const [modalDisplay, setModalDisplay] = useState('none');
+
+  return (
+    <CreatePostContext.Provider
+      value={{ modalDisplay: modalDisplay, setModalDisplay: setModalDisplay }}
+    >
+      {children}
+    </CreatePostContext.Provider>
+  );
+};
+
 const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(profileReducer, initialProfileState);
 
@@ -76,7 +89,9 @@ const AuthContextProvider = ({ children }) => {
 };
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthContextProvider>
-    <RouterProvider router={router} />
-  </AuthContextProvider>
+  <CreatePostContextProvider>
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
+  </CreatePostContextProvider>
 );

@@ -15,6 +15,20 @@
   cursor: pointer;
 }
 
+.profile-post-modal {
+  box-shadow: 0 0 10rem rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.63);
+}
+
+.cross:hover {
+  cursor: pointer;
+}
+
+.create-post-modal {
+  box-shadow: 0 0 10rem rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.63);
+}
+
 @media (max-width: calc(3 * 20rem + 2 * 3px)) {
   .profile-posts-grid {
     grid-template-columns: repeat(2, 20rem);

@@ -1,66 +1,92 @@
 import ProfilePostCard from './ProfilePostCard';
 import '../styles/profile-posts.css';
-import { useState } from 'react';
 import ProfilePostModal from './ProfilePostModal';
+import { useState } from 'react';
 
 export default function ProfilePostsGrid() {
-  const [modalDisplay, setModalDisplay] = useState('none');
-
+  const [profilePostModal, setProfilePostModal] = useState('none');
   return (
     <div>
-      <ProfilePostModal modalDisplay={modalDisplay} />
+      <ProfilePostModal
+        profilePostModal={profilePostModal}
+        setProfilePostModal={setProfilePostModal}
+      />
       <div className="profile-posts-grid">
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
         <ProfilePostCard
-          modalDisplay={modalDisplay}
-          setModalDisplay={setModalDisplay}
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
+        />
+        <ProfilePostCard
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
+        />
+        <ProfilePostCard
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
+        />
+        <ProfilePostCard
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
+        />
+        <ProfilePostCard
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
+        />
+        <ProfilePostCard
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
+        />
+        <ProfilePostCard
+          profilePostModal={profilePostModal}
+          setProfilePostModal={setProfilePostModal}
         />
       </div>
     </div>

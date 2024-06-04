@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import ProfilePostModal from './ProfilePostModal';
-
-export default function ProfilePostCard({ modalDisplay, setModalDisplay }) {
+export default function ProfilePostCard({
+  profilePostModal,
+  setProfilePostModal,
+}) {
   return (
     <>
       <img
@@ -10,9 +10,9 @@ export default function ProfilePostCard({ modalDisplay, setModalDisplay }) {
         alt=""
         style={{ width: '20rem', height: '20rem', objectFit: 'cover' }}
         onClick={() => {
-          modalDisplay === 'none'
-            ? setModalDisplay('block')
-            : setModalDisplay('none');
+          profilePostModal === 'none'
+            ? setProfilePostModal('block')
+            : setProfilePostModal('none');
         }}
       />
     </>

@@ -1,10 +1,12 @@
 import Post from './Post';
 import UserNavBar from './UserNavBar';
+import CreatePostModal from './CreatePostModal';
 
 export default function Feed() {
   return (
     <>
       <UserNavBar />
+      <CreatePostModal />
       <div
         style={{
           display: 'flex',

@@ -2,8 +2,12 @@ import '../styles/navbar.css';
 import { Link } from 'react-router-dom';
 import { IoMdHome } from 'react-icons/io';
 import { MdCreate } from 'react-icons/md';
+import { CreatePostContext } from '../context';
+import { useContext } from 'react';
 
-export default function UserNavBar() {
+export default function UserNavBar({}) {
+  const { modalDisplay, setModalDisplay } = useContext(CreatePostContext);
+
   return (
     <>
       <div className="navbar" style={{ justifyContent: 'end' }}>
@@ -11,7 +15,15 @@ export default function UserNavBar() {
           className="nav-links-wrapper"
           style={{ alignItems: 'center', gap: '2.3rem' }}
         >
-          <MdCreate className="create-post" style={{ fontSize: '2.7rem' }} />
+          <MdCreate
+            className="create-post"
+            style={{ fontSize: '2.7rem' }}
+            onClick={() => {
+              modalDisplay === 'none'
+                ? setModalDisplay('block')
+                : setModalDisplay('none');
+            }}
+          />
           <Link
             to="/feed"
             className="nav-link"

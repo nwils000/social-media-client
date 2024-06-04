@@ -29,6 +29,20 @@
   background-color: rgba(0, 0, 0, 0.63);
 }
 
+.file-label {
+  background-color: rgba(24, 119, 242, 255);
+  opacity: 0.75;
+  border-radius: 5px;
+  color: white;
+  padding: 0.3rem 1rem;
+  margin-top: 1rem;
+}
+
+.file-label:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 @media (max-width: calc(3 * 20rem + 2 * 3px)) {
   .profile-posts-grid {
     grid-template-columns: repeat(2, 20rem);

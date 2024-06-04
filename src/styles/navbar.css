@@ -10,7 +10,7 @@
   left: 50%;
   transform: translate(-50%);
   max-width: 90rem;
-  position: fixed;
+  position: absolute;
   top: 0;
   z-index: 2;
 }

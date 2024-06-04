@@ -33,8 +33,9 @@ export default function Login() {
 
   const submit = async () => {
     try {
-      fetchUser({ auth });
       getToken({ auth, username, password });
+      fetchUser({ auth });
+      navigate('/feed');
     } catch (error) {
       console.log('Error: ', error);
     }

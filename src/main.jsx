@@ -11,6 +11,7 @@ import ErrorPage from './components/ErrorPage';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
+import Feed from './components/Feed';
 import {
   initialProfileState,
   profileReducer,
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/feed',
+        element: <Feed />,
       },
     ],
   },

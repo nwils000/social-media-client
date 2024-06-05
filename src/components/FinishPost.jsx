@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 
-export default function AddImage({ display, imagePreview, flexDirection }) {
+export default function AddImage({
+  display,
+  imagePreview,
+  flexDirection,
+  setDescription,
+  description,
+}) {
   return (
     <div
       style={{
@@ -21,7 +27,13 @@ export default function AddImage({ display, imagePreview, flexDirection }) {
         />
       )}
       <div style={{ width: '20rem' }}>
-        <textarea placeholder="Write a caption..."></textarea>
+        <textarea
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+          placeholder="Write a caption..."
+        ></textarea>
       </div>
     </div>
   );

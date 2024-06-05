@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 
-export default function AddImage({ display, imagePreview, setImagePreview }) {
-  const [image, setImage] = useState(undefined);
-
+export default function AddImage({
+  display,
+  imagePreview,
+  setImagePreview,
+  image,
+  setImage,
+}) {
   useEffect(() => {
     return () => {
       if (imagePreview) URL.revokeObjectURL(imagePreview);

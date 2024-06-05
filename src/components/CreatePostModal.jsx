@@ -1,16 +1,26 @@
 import { RxCross2 } from 'react-icons/rx';
 import { IoArrowBackSharp } from 'react-icons/io5';
 import { useContext, useState } from 'react';
-import { CreatePostContext } from '../context';
+import { AuthContext, CreatePostContext } from '../context';
 import AddImage from './AddImage';
 import FinishPost from './FinishPost';
+import { createPost } from '../api';
 
 export default function CreatePostModal() {
   const { modalDisplay, setModalDisplay } = useContext(CreatePostContext);
   const [addImageDisplay, setAddImageDisplay] = useState('flex');
   const [finishPostDisplay, setFinishPostDisplay] = useState('none');
   const [imagePreview, setImagePreview] = useState();
+  const [image, setImage] = useState();
   const [flexDirection, setFlexDirection] = useState('column');
+  const [description, setDescription] = useState('');
+  const { auth } = useContext(AuthContext);
+
+  const handleShare = async () => {
+    try {
+      createPost({ auth, description, image });
+    } catch (error) {}
+  };
 
   return (
     <div>
@@ -121,6 +131,7 @@ export default function CreatePostModal() {
                 zIndex: 3,
               }}
               onClick={() => {
+                handleShare();
                 addImageDisplay && setAddImageDisplay('none');
                 finishPostDisplay === 'none' && setFinishPostDisplay('flex');
                 setFlexDirection('row');
@@ -132,11 +143,19 @@ export default function CreatePostModal() {
         </div>
         <AddImage
           display={addImageDisplay}
+          image={image}
+          setImage={setImage}
           imagePreview={imagePreview}
           setImagePreview={setImagePreview}
           flexDirection={flexDirection}
         />
-        <FinishPost display={finishPostDisplay} imagePreview={imagePreview} />
+        <FinishPost
+          display={finishPostDisplay}
+          imagePreview={imagePreview}
+          image={image}
+          description={description}
+          setDescription={setDescription}
+        />
       </div>
     </div>
   );

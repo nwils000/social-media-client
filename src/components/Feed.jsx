@@ -1,8 +1,17 @@
 import Post from './Post';
 import UserNavBar from './UserNavBar';
 import CreatePostModal from './CreatePostModal';
+import { AuthContext } from '../context';
+import { useContext, useEffect } from 'react';
+import { getFollowingPosts } from '../api';
 
 export default function Feed() {
+  const { auth } = useContext(AuthContext);
+
+  useEffect(() => {
+    getFollowingPosts({ auth });
+  }, []);
+
   return (
     <>
       <UserNavBar />

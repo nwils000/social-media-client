@@ -15,7 +15,6 @@ export default function Post() {
     >
       <h2
         style={{
-          fontSize: '1rem',
           fontWeight: 'bold',
           fontSize: '1.2rem',
         }}

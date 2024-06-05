@@ -26,18 +26,16 @@ export default function Login() {
   }, [passwordHidden]);
 
   useEffect(() => {
-    if (auth.state.accessToken) {
-      fetchUser({ auth });
-    }
+    console.log('THE TOKEN', auth.state.accessToken);
   }, [auth.state.accessToken]);
 
   const submit = async () => {
     try {
-      getToken({ auth, username, password });
-      fetchUser({ auth });
+      const accessToken = await getToken({ auth, username, password });
+      await fetchUser({ accessToken });
       navigate('/feed');
     } catch (error) {
-      console.log('Error: ', error);
+      console.log('Error:', error);
     }
   };
 

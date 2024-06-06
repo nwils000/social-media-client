@@ -71,3 +71,7 @@ img {
 input[type='file']::file-selector-button {
   display: none;
 }
+
+.hover:hover {
+  cursor: pointer;
+}

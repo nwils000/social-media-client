@@ -1,15 +1,42 @@
 import Post from './Post';
 import UserNavBar from './UserNavBar';
 import CreatePostModal from './CreatePostModal';
-import { AuthContext } from '../context';
-import { useContext, useEffect } from 'react';
+import { ProfileContext } from '../context';
+import { useContext, useEffect, useState } from 'react';
 import { getFollowingPosts } from '../api';
 
 export default function Feed() {
-  const { auth } = useContext(AuthContext);
+  const { profile } = useContext(ProfileContext);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getFollowingPosts({ auth });
+    const fetchPosts = async () => {
+      try {
+        const posts = await getFollowingPosts({ profile });
+        setPosts(posts);
+        console.log('POSTSSSS', posts);
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    };
+    const intervalId = setInterval(() => {
+      fetchPosts();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const posts = await getFollowingPosts({ profile });
+        setPosts(posts);
+        console.log('POSTSSSS', posts);
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    };
+    fetchPosts();
   }, []);
 
   return (
@@ -30,11 +57,10 @@ export default function Feed() {
       >
         <h1 style={{ marginBottom: '2rem' }}>Feed</h1>
         <hr style={{ width: '100%', zIndex: -1 }} />
-
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        {posts.length > 0 &&
+          posts.map((post) => {
+            return <Post post={post} />;
+          })}
       </div>
     </>
   );

@@ -2,32 +2,30 @@ import axios from 'axios';
 
 const baseUrl = 'http://127.0.0.1:8000';
 
-export const getToken = async ({ auth, username, password }) => {
+export const getToken = async ({ profile, username, password }) => {
   try {
     const response = await axios.post(`${baseUrl}/token/`, {
       username: username,
       password: password,
     });
-    console.log('RESPONSE: ', response);
+    console.log('Token Response: ', response);
     const accessToken = response.data.access;
-    auth.dispatch({
+    profile.dispatch({
       type: 'SET_ACCESS_TOKEN',
       accessToken: accessToken,
     });
-    console.log('access', auth.state.accessToken);
     return accessToken;
   } catch (error) {
     console.log('Error with getToken api call: ', error);
-    auth.dispatch({
+    profile.dispatch({
       type: 'SET_ACCESS_TOKEN',
       accessToken: undefined,
     });
   }
 };
 
-export const fetchUser = async ({ accessToken }) => {
+export const fetchUser = async ({ accessToken, profile }) => {
   try {
-    console.log('access', accessToken);
     const response = await axios({
       method: 'get',
       url: `${baseUrl}/profile/`,
@@ -36,9 +34,17 @@ export const fetchUser = async ({ accessToken }) => {
       },
     });
     console.log('PROFILE: ', response);
+    profile.dispatch({
+      type: 'SET_PROFILE',
+      profile: response.data,
+    });
+    profile.dispatch({
+      type: 'SET_PROFILE_IM_SEEING',
+      theProfile: response.data,
+    });
   } catch (error) {
     console.log('Error with fetchUser api call: ', error);
-    auth.dispatch({
+    profile.dispatch({
       type: 'SET_ACCESS_TOKEN',
       accessToken: undefined,
     });
@@ -68,13 +74,13 @@ export const createUser = async ({
   }
 };
 
-export const createPost = async ({ auth, image, description }) => {
+export const createPost = async ({ profile, image, description }) => {
   try {
     const response = await axios({
       method: 'post',
       url: `${baseUrl}/create-post/`,
       headers: {
-        Authorization: `Bearer ${auth.state.accessToken}`,
+        Authorization: `Bearer ${profile.state.accessToken}`,
         'Content-Type': 'multipart/form-data',
       },
       data: {
@@ -82,23 +88,169 @@ export const createPost = async ({ auth, image, description }) => {
         description,
       },
     });
+    const accessToken = profile.state.accessToken;
     console.log('CREATED POST: ', response);
+    fetchUser({ accessToken, profile });
   } catch (error) {
     console.log('Error with createPost api call: ', error);
   }
 };
 
-export const getFollowingPosts = async ({ auth }) => {
+export const getFollowingPosts = async ({ profile }) => {
   try {
     const response = await axios({
       method: 'get',
       url: `${baseUrl}/get-following-posts/`,
       headers: {
-        Authorization: `Bearer ${auth.state.accessToken}`,
+        Authorization: `Bearer ${profile.state.accessToken}`,
       },
     });
     console.log('following posts', response);
+    profile.dispatch({
+      type: 'SET_FOLLOWING',
+      accessToken: response.data,
+    });
+    return response.data;
   } catch (error) {
     console.log('Error with getFollowingPosts api call: ', error);
+  }
+};
+
+export const addLikeToPost = async ({ profile, postId }) => {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${baseUrl}/add-like-to-post/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+      data: {
+        post_id: postId,
+      },
+    });
+    profile.dispatch({
+      type: 'SET_FOLLOWING',
+      accessToken: response.data,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with addLikeToPost api call: ', error);
+  }
+};
+
+export const addCommentToPost = async ({ profile, postId, comment }) => {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${baseUrl}/add-comment-to-post/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+      data: {
+        post_id: postId,
+        comment,
+      },
+    });
+    profile.dispatch({
+      type: 'SET_FOLLOWING',
+      accessToken: response.data,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with addCommentToPost api call: ', error);
+  }
+};
+
+export const getProfileToSee = async ({ profile, profileId }) => {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `${baseUrl}/get-profile-to-see/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+      params: {
+        profile_id: profileId,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with getProfileToSee api call: ', error);
+  }
+};
+
+export const updateProfile = async ({ profile, image, bio }) => {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${baseUrl}/update-profile/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      data: {
+        image,
+        bio,
+      },
+    });
+    profile.dispatch({
+      type: 'SET_PROFILE',
+      profile: response.data,
+    });
+    profile.dispatch({
+      type: 'SET_PROFILE_IM_SEEING',
+      theProfile: response.data,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with updateProfile api call: ', error);
+  }
+};
+
+export const updatePost = async ({ profile, description, postId }) => {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${baseUrl}/update-post/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+      data: {
+        description,
+        post_id: postId,
+      },
+    });
+    profile.dispatch({
+      type: 'SET_POST_LOOKING_AT',
+      postLookingAt: response.data,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with updatePost api call: ', error);
+  }
+};
+export const deletePost = async ({ profile, postId }) => {
+  try {
+    const response = await axios({
+      method: 'delete',
+      url: `${baseUrl}/delete-post/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+      data: {
+        post_id: postId,
+      },
+    });
+    profile.dispatch({
+      type: 'SET_PROFILE',
+      profile: response.data,
+    });
+    profile.dispatch({
+      type: 'SET_PROFILE_IM_SEEING',
+      theProfile: response.data,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with deletePost api call: ', error);
   }
 };

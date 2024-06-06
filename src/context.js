@@ -1,4 +1,5 @@
 import { createContext } from 'react';
 
-export const AuthContext = createContext();
+export const ProfileContext = createContext();
 export const CreatePostContext = createContext();
+export const ProfileImSeeingContext = createContext();

@@ -1,7 +1,7 @@
 import { RxCross2 } from 'react-icons/rx';
 import { IoArrowBackSharp } from 'react-icons/io5';
 import { useContext, useState } from 'react';
-import { AuthContext, CreatePostContext } from '../context';
+import { ProfileContext, CreatePostContext } from '../context';
 import AddImage from './AddImage';
 import FinishPost from './FinishPost';
 import { createPost } from '../api';
@@ -14,11 +14,11 @@ export default function CreatePostModal() {
   const [image, setImage] = useState();
   const [flexDirection, setFlexDirection] = useState('column');
   const [description, setDescription] = useState('');
-  const { auth } = useContext(AuthContext);
+  const { profile } = useContext(ProfileContext);
 
   const handleShare = async () => {
     try {
-      createPost({ auth, description, image });
+      createPost({ profile, description, image });
     } catch (error) {}
   };
 
@@ -57,7 +57,7 @@ export default function CreatePostModal() {
         style={{
           backgroundColor: 'white',
           display: modalDisplay,
-          minWidth: '32rem',
+          width: '32rem',
           height: '34.6rem',
           margin: 'auto',
           position: 'fixed',
@@ -135,6 +135,7 @@ export default function CreatePostModal() {
                 addImageDisplay && setAddImageDisplay('none');
                 finishPostDisplay === 'none' && setFinishPostDisplay('flex');
                 setFlexDirection('row');
+                setModalDisplay('none');
               }}
             >
               Share

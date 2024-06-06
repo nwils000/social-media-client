@@ -3,23 +3,23 @@ import UserNavBar from './UserNavBar';
 import ProfilePostsGrid from './ProfilePostsGrid';
 import CreatePostModal from './CreatePostModal';
 import { useContext, useEffect } from 'react';
-// import { getPosts } from '../api';
-// import { AuthContext } from '../context';
+import { ProfileContext } from '../context';
 
 export default function Profile() {
-  // const { auth } = useContext(AuthContext);
+  const { profile } = useContext(ProfileContext);
+  let profileImSeeing = profile.state.profileImSeeing;
 
-  // useEffect(() => {
-  //   getPosts({ auth });
-  // }, []);
+  useEffect(() => {
+    console.log('PROFILE TO SEE', profileImSeeing);
+  }, []);
 
   return (
     <>
       <UserNavBar />
       <CreatePostModal />
       <div>
-        <ProfilePersonalInfo />
-        <ProfilePostsGrid />
+        <ProfilePersonalInfo profileImSeeing={profileImSeeing} />
+        <ProfilePostsGrid profileImSeeing={profileImSeeing} />
       </div>
     </>
   );

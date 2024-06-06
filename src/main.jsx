@@ -15,7 +15,7 @@ import {
   initialProfileState,
   profileReducer,
 } from './reducers/profile-reducer';
-import { AuthContext } from './context';
+import { ProfileContext } from './context';
 import { CreatePostContext } from './context';
 import Profile from './components/Profile';
 
@@ -73,25 +73,25 @@ const CreatePostContextProvider = ({ children }) => {
   );
 };
 
-const AuthContextProvider = ({ children }) => {
+const ProfileContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(profileReducer, initialProfileState);
 
-  const auth = {
+  const profile = {
     state,
     dispatch,
   };
 
   return (
-    <AuthContext.Provider value={{ auth: auth }}>
+    <ProfileContext.Provider value={{ profile: profile }}>
       {children}
-    </AuthContext.Provider>
+    </ProfileContext.Provider>
   );
 };
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <CreatePostContextProvider>
-    <AuthContextProvider>
+    <ProfileContextProvider>
       <RouterProvider router={router} />
-    </AuthContextProvider>
+    </ProfileContextProvider>
   </CreatePostContextProvider>
 );

@@ -5,12 +5,12 @@ import { FaEyeSlash } from 'react-icons/fa';
 import { useState, useEffect, useContext } from 'react';
 import { getToken } from '../api.js';
 import { fetchUser } from '../api.js';
-import { AuthContext } from '../context.js';
+import { ProfileContext } from '../context.js';
 import LandingPageNavBar from './LandingPageNavBar.jsx';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const { auth } = useContext(AuthContext);
+  const { profile } = useContext(ProfileContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -26,13 +26,13 @@ export default function Login() {
   }, [passwordHidden]);
 
   useEffect(() => {
-    console.log('THE TOKEN', auth.state.accessToken);
-  }, [auth.state.accessToken]);
+    console.log('THE TOKEN', profile.state.accessToken);
+  }, [profile.state.accessToken]);
 
   const submit = async () => {
     try {
-      const accessToken = await getToken({ auth, username, password });
-      await fetchUser({ accessToken });
+      const accessToken = await getToken({ profile, username, password });
+      await fetchUser({ accessToken, profile });
       navigate('/feed');
     } catch (error) {
       console.log('Error:', error);

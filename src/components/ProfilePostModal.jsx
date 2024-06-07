@@ -73,7 +73,7 @@ export default function ProfilePostModal({
         <div style={{ width: '33rem', display: 'flex' }}>
           <img
             style={{ objectFit: 'scale-down' }}
-            src={`http://127.0.0.1:8000${post.image}`}
+            src={`https://app-social-media.fly.dev${post.image}`}
             alt=""
           />
         </div>

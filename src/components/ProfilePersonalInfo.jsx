@@ -56,7 +56,7 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
         }}
       >
         <img
-          src={`http://127.0.0.1:8000${profileImSeeing.profile_picture}`}
+          src={`https://app-social-media.fly.dev${profileImSeeing.profile_picture}`}
           alt=""
           style={{ width: '10rem', height: '10rem', borderRadius: '100%' }}
         />

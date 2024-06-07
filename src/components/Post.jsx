@@ -53,7 +53,7 @@ export default function Post({ post }) {
       </h2>
 
       <div className="image-wrapper">
-        <img src={`http://127.0.0.1:8000/${post.image}`} alt="" />
+        <img src={`http://127.0.0.1:8000${post.image}`} alt="" />
       </div>
       <div>
         <span style={{ fontSize: '1.4rem' }}>{post.description}</span>

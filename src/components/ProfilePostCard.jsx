@@ -20,7 +20,7 @@ export default function ProfilePostCard({
     <>
       <img
         className="profile-post-card"
-        src={`http://127.0.0.1:8000/${post.image}`}
+        src={`http://127.0.0.1:8000${post.image}`}
         alt=""
         style={{ width: '20rem', height: '20rem', objectFit: 'cover' }}
         onClick={() => {

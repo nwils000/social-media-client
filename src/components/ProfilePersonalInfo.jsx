@@ -2,16 +2,39 @@ import { useContext, useEffect, useState } from 'react';
 import { ProfileContext } from '../context';
 import { useNavigate } from 'react-router-dom';
 import EditProfilePostModal from './EditProfilePostModal';
+import { followUser, unfollowUser } from '../api';
 
 export default function ProfilePersonalInfo({ profileImSeeing }) {
   const { profile } = useContext(ProfileContext);
   const [modalShowing, setModalShowing] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     console.log('PROFILE TO SEE', profileImSeeing);
-  }, []);
+    setIsFollowing(
+      profile.state.profile.following.some(
+        (follow) => follow.id === profileImSeeing.id
+      )
+    );
+  }, [profile.state.profile, profileImSeeing]);
 
   const navigate = useNavigate();
+
+  const handleFollow = () => {
+    const userIdToFollow = profileImSeeing.id;
+    followUser({
+      profile: profile,
+      userIdToFollow: userIdToFollow,
+    });
+  };
+
+  const handleUnfollow = () => {
+    const userIdToUnfollow = profileImSeeing.id;
+    unfollowUser({
+      profile: profile,
+      userIdToUnfollow: userIdToUnfollow,
+    });
+  };
 
   return (
     <>
@@ -33,7 +56,7 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
         }}
       >
         <img
-          src={`http://127.0.0.1:8000/${profile.state.profileImSeeing.profile_picture}`}
+          src={`http://127.0.0.1:8000/${profileImSeeing.profile_picture}`}
           alt=""
           style={{ width: '10rem', height: '10rem', borderRadius: '100%' }}
         />
@@ -47,74 +70,62 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
             >
               {profileImSeeing.user.username}
             </h2>
-            {profileImSeeing.id === profile.state.profile.id && (
+            {profileImSeeing.id === profile.state.profile.id ? (
               <>
                 <button
-                  style={{
-                    border: 'none',
-                    padding: '8px 16px',
-                    backgroundColor: 'rgb(227, 227, 227)',
-                    fontWeight: '500',
-                    borderRadius: '10px',
-                    fontSize: '.9rem',
-                  }}
-                  onClick={() => {
-                    modalShowing
-                      ? setModalShowing(false)
-                      : setModalShowing(true);
-                  }}
+                  style={buttonStyle}
+                  onClick={() => setModalShowing(!modalShowing)}
                 >
                   Edit profile
                 </button>
                 <button
-                  style={{
-                    border: 'none',
-                    padding: '8px 16px',
-                    backgroundColor: 'rgb(227, 227, 227)',
-                    fontWeight: '500',
-                    borderRadius: '10px',
-                    fontSize: '.9rem',
-                  }}
+                  style={buttonStyle}
                   onClick={() => {
-                    profile.dispatch({
-                      type: 'LOGOUT',
-                    });
+                    profile.dispatch({ type: 'LOGOUT' });
                     navigate('/');
                   }}
                 >
                   Log out
                 </button>
               </>
+            ) : isFollowing ? (
+              <button style={buttonStyle} onClick={handleUnfollow}>
+                Unfollow
+              </button>
+            ) : (
+              <button style={buttonStyle} onClick={handleFollow}>
+                Follow
+              </button>
             )}
           </div>
           <div style={{ display: 'flex', gap: '1rem' }}>
             <span>
-              <span style={{ fontWeight: 'bold' }}>
-                {profileImSeeing.posts.length}{' '}
-              </span>
-              <span>posts</span>
+              <strong>{profileImSeeing.posts.length}</strong> posts
             </span>
             <span>
-              <span style={{ fontWeight: 'bold' }}>
-                {profileImSeeing.followers.length}{' '}
-              </span>
-              <span>followers</span>
+              <strong>{profileImSeeing.followers.length}</strong> followers
             </span>
             <span>
-              <span style={{ fontWeight: 'bold' }}>
-                {profileImSeeing.following.length}{' '}
-              </span>
-              <span>following</span>
+              <strong>{profileImSeeing.following.length}</strong> following
             </span>
           </div>
           <div>
-            <p style={{ fontWeight: 'bold', marginBottom: 0 }}>
+            <strong>
               {profileImSeeing.first_name} {profileImSeeing.last_name}
-            </p>
-            <p>{profile.state.profileImSeeing.description} </p>
+            </strong>
+            <p>{profileImSeeing.description}</p>
           </div>
         </div>
       </div>
     </>
   );
 }
+
+const buttonStyle = {
+  border: 'none',
+  padding: '8px 16px',
+  backgroundColor: 'rgb(227, 227, 227)',
+  fontWeight: '500',
+  borderRadius: '10px',
+  fontSize: '.9rem',
+};

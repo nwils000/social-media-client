@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'https://app-social-media.fly.dev';
+const baseUrl = 'http://127.0.0.1:8000';
+// const baseUrl = 'https://app-social-media.fly.dev/';
 
 export const getToken = async ({ profile, username, password }) => {
   try {
@@ -267,5 +268,53 @@ export const getAllProfiles = async ({ profile }) => {
     return response.data;
   } catch (error) {
     console.log('Error with getAllProfiles api call: ', error);
+  }
+};
+
+export const followUser = async ({ profile, userIdToFollow }) => {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${baseUrl}/follow-user/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+      data: {
+        user_id: userIdToFollow,
+      },
+    });
+    console.log('Follow User Response: ', response);
+    profile.dispatch({
+      type: 'UPDATE_FOLLOWING_STATUS',
+      following: true,
+      userId: userIdToFollow,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with followUser api call: ', error);
+  }
+};
+
+export const unfollowUser = async ({ profile, userIdToUnfollow }) => {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${baseUrl}/unfollow-user/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+      data: {
+        user_id: userIdToUnfollow,
+      },
+    });
+    console.log('Unfollow User Response: ', response);
+    profile.dispatch({
+      type: 'UPDATE_FOLLOWING_STATUS',
+      following: false,
+      userId: userIdToUnfollow,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with unfollowUser api call: ', error);
   }
 };

@@ -133,6 +133,10 @@ export const addLikeToPost = async ({ profile, postId }) => {
       type: 'SET_FOLLOWING',
       accessToken: response.data,
     });
+    profile.dispatch({
+      type: 'SET_PROFILE',
+      profile: profile.state.profile,
+    });
     return response.data;
   } catch (error) {
     console.log('Error with addLikeToPost api call: ', error);

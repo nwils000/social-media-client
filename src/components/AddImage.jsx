@@ -35,7 +35,11 @@ export default function AddImage({
       }}
     >
       {imagePreview && (
-        <img src={imagePreview} alt="Selected" style={{ width: '100%' }} />
+        <img
+          src={imagePreview}
+          alt="Selected"
+          style={{ maxWidth: '100%', maxHeight: '300px' }}
+        />
       )}
       <label htmlFor="file" className="file-label">
         Select an image

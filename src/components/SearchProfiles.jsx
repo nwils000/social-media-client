@@ -64,7 +64,7 @@ export default function SearchProfiles({}) {
               fetchProfileImClicking();
             }}
           >
-            {prof.user.username} -{' '}
+            @{prof.user.username} -{' '}
             <span style={{ color: 'lightgray' }}>
               {prof.first_name} {prof.last_name}
             </span>

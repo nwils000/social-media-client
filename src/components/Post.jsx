@@ -49,7 +49,7 @@ export default function Post({ post }) {
           fetchProfileImSeeing();
         }}
       >
-        {post.profile.user.username}
+        @{post.profile.user.username}
       </h2>
 
       <div className="image-wrapper">
@@ -96,7 +96,7 @@ export default function Post({ post }) {
               }}
               style={{ fontWeight: 'bold' }}
             >
-              {comment.profile.user.username}{' '}
+              @{comment.profile.user.username}{' '}
             </span>
             <span>{comment.text}</span>
           </div>

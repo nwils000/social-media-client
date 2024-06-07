@@ -49,7 +49,7 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
           display: 'flex',
           justifyContent: 'center',
           position: 'relative',
-          right: '9rem',
+          right: '6rem',
           gap: '5rem',
           alignItems: 'center',
           marginBottom: '4rem',
@@ -91,7 +91,7 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
                 fontWeight: 'normal',
               }}
             >
-              {profileImSeeing.user.username}
+              @{profileImSeeing.user.username}
             </h2>
             {profileImSeeing.id === profile.state.profile.id ? (
               <>

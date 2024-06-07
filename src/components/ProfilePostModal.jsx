@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
-import { deletePost, fetchUser, updatePost } from '../api';
+import { addLikeToPost, deletePost, fetchUser, updatePost } from '../api';
 import { ProfileContext } from '../context';
+import { FaRegHeart } from 'react-icons/fa';
 
 export default function ProfilePostModal({
   setProfilePostModal,
@@ -119,6 +120,14 @@ export default function ProfilePostModal({
             </div>
           ) : (
             <div>
+              <div
+                className="interaction-bar"
+                onClick={() => {
+                  addLikeToPost({ profile, postId: post.id });
+                }}
+              >
+                <FaRegHeart className="hover" style={{ fontSize: '2rem' }} />
+              </div>
               <p>Likes: {thePost.likes.length}</p>
               <p>{thePost.description}</p>
               {thePost.comments.map((comment) => {
@@ -150,7 +159,7 @@ export default function ProfilePostModal({
                       }}
                       style={{ fontWeight: 'bold' }}
                     >
-                      {comment.profile.user.username}{' '}
+                      @{comment.profile.user.username}{' '}
                     </span>
                     <span>{comment.text}</span>
                   </div>

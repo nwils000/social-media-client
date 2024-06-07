@@ -55,11 +55,24 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
           marginBottom: '4rem',
         }}
       >
-        <img
-          src={`https://app-social-media.fly.dev${profileImSeeing.profile_picture}`}
-          alt=""
-          style={{ width: '10rem', height: '10rem', borderRadius: '100%' }}
-        />
+        {profileImSeeing.profile_picture != null ? (
+          <img
+            className="hover"
+            src={`https://app-social-media.fly.dev${profileImSeeing.profile_picture}`}
+            style={{ width: '10rem', height: '10rem', borderRadius: '100%' }}
+            alt=""
+          />
+        ) : (
+          <img
+            className="hover"
+            src={
+              'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
+            }
+            style={{ width: '10rem', height: '10rem', borderRadius: '100%' }}
+            alt=""
+          />
+        )}
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <h2

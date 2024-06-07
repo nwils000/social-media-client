@@ -45,12 +45,23 @@ export default function UserNavBar({}) {
               navigate('/profile');
             }}
           >
-            <img
-              className="hover"
-              src="https://images.pexels.com/photos/24252211/pexels-photo-24252211/free-photo-of-a-table-with-flowers-and-watercolor-paints.jpeg"
-              style={{ width: '3rem', height: '3rem', borderRadius: '100%' }}
-              alt=""
-            />
+            {profile.state.profile.profile_picture != null ? (
+              <img
+                className="hover"
+                src={`https://app-social-media.fly.dev${profile.state.profile.profile_picture}`}
+                style={{ width: '3rem', height: '3rem', borderRadius: '100%' }}
+                alt=""
+              />
+            ) : (
+              <img
+                className="hover"
+                src={
+                  'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
+                }
+                style={{ width: '3rem', height: '3rem', borderRadius: '100%' }}
+                alt=""
+              />
+            )}
           </div>
         </div>
       </div>

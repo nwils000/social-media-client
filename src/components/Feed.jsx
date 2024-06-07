@@ -5,10 +5,18 @@ import { ProfileContext } from '../context';
 import { useContext, useEffect, useState } from 'react';
 import { getFollowingPosts } from '../api';
 import SearchProfiles from './SearchProfiles';
+import { useNavigate } from 'react-router-dom';
 
 export default function Feed() {
   const { profile } = useContext(ProfileContext);
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!profile.state.profile.first_name) {
+      navigate('/');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {

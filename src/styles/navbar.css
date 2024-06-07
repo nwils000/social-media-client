@@ -42,7 +42,7 @@
 
 .create-post:hover {
   cursor: pointer;
-  color: rgb(172, 124, 145);
+  color: #995822aa;
 }
 
 @media screen and (max-width: 1350px) {

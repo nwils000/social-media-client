@@ -54,7 +54,7 @@ a::before {
 
 a:hover {
   cursor: pointer;
-  color: rgb(172, 124, 145);
+  color: #99582299;
 
   text-decoration: none;
 }

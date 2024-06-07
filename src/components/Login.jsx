@@ -36,6 +36,7 @@ export default function Login() {
       navigate('/feed');
     } catch (error) {
       console.log('Error:', error);
+      navigate('/');
     }
   };
 

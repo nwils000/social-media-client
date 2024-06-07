@@ -113,8 +113,12 @@ export default function ProfilePostModal({
           ) : (
             thePost.description
           )}
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
+          {thePost.profile.id === profile.state.profile.id && (
+            <div>
+              <button onClick={handleEdit}>Edit</button>
+              <button onClick={handleDelete}>Delete</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import CreatePostModal from './CreatePostModal';
 import { ProfileContext } from '../context';
 import { useContext, useEffect, useState } from 'react';
 import { getFollowingPosts } from '../api';
+import SearchProfiles from './SearchProfiles';
 
 export default function Feed() {
   const { profile } = useContext(ProfileContext);
@@ -55,6 +56,7 @@ export default function Feed() {
           minHeight: '100vh',
         }}
       >
+        <SearchProfiles />
         <h1 style={{ marginBottom: '2rem' }}>Feed</h1>
         <hr style={{ width: '100%', zIndex: -1 }} />
         {posts.length > 0 &&

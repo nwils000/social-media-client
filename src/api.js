@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://127.0.0.1:8000';
+const baseUrl = 'https://app-social-media.fly.dev';
 
 export const getToken = async ({ profile, username, password }) => {
   try {
@@ -252,5 +252,20 @@ export const deletePost = async ({ profile, postId }) => {
     return response.data;
   } catch (error) {
     console.log('Error with deletePost api call: ', error);
+  }
+};
+
+export const getAllProfiles = async ({ profile }) => {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `${baseUrl}/get-all-profiles/`,
+      headers: {
+        Authorization: `Bearer ${profile.state.accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error with getAllProfiles api call: ', error);
   }
 };

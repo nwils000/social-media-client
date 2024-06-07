@@ -60,7 +60,7 @@ export default function Feed() {
         <h1 style={{ marginBottom: '2rem' }}>Feed</h1>
         <hr style={{ width: '100%', zIndex: -1 }} />
         {posts.length > 0 &&
-          posts.map((post) => {
+          posts.slice(0, 15).map((post) => {
             return <Post post={post} />;
           })}
       </div>

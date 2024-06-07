@@ -59,7 +59,12 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
           <img
             className="hover"
             src={`https://app-social-media.fly.dev${profileImSeeing.profile_picture}`}
-            style={{ width: '10rem', height: '10rem', borderRadius: '100%' }}
+            style={{
+              width: '10rem',
+              height: '10rem',
+              borderRadius: '100%',
+              objectFit: 'cover',
+            }}
             alt=""
           />
         ) : (
@@ -68,7 +73,12 @@ export default function ProfilePersonalInfo({ profileImSeeing }) {
             src={
               'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
             }
-            style={{ width: '10rem', height: '10rem', borderRadius: '100%' }}
+            style={{
+              width: '10rem',
+              height: '10rem',
+              borderRadius: '100%',
+              objectFit: 'cover',
+            }}
             alt=""
           />
         )}

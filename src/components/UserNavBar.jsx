@@ -49,7 +49,12 @@ export default function UserNavBar({}) {
               <img
                 className="hover"
                 src={`https://app-social-media.fly.dev${profile.state.profile.profile_picture}`}
-                style={{ width: '3rem', height: '3rem', borderRadius: '100%' }}
+                style={{
+                  width: '3rem',
+                  height: '3rem',
+                  borderRadius: '100%',
+                  objectFit: 'cover',
+                }}
                 alt=""
               />
             ) : (
@@ -58,7 +63,12 @@ export default function UserNavBar({}) {
                 src={
                   'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'
                 }
-                style={{ width: '3rem', height: '3rem', borderRadius: '100%' }}
+                style={{
+                  width: '3rem',
+                  height: '3rem',
+                  borderRadius: '100%',
+                  objectFit: 'cover',
+                }}
                 alt=""
               />
             )}

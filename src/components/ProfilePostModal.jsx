@@ -83,6 +83,13 @@ export default function ProfilePostModal({
             minWidth: '33rem',
           }}
         >
+          {' '}
+          {thePost.profile.id === profile.state.profile.id && (
+            <div>
+              <button onClick={handleEdit}>Edit</button>
+              <button onClick={handleDelete}>Delete</button>
+            </div>
+          )}
           {isEditing ? (
             <div>
               <input
@@ -112,7 +119,7 @@ export default function ProfilePostModal({
             </div>
           ) : (
             <div>
-              <p>{thePost.likes.length}</p>
+              <p>Likes: {thePost.likes.length}</p>
               <p>{thePost.description}</p>
               {thePost.comments.map((comment) => {
                 return (
@@ -149,12 +156,6 @@ export default function ProfilePostModal({
                   </div>
                 );
               })}
-            </div>
-          )}
-          {thePost.profile.id === profile.state.profile.id && (
-            <div>
-              <button onClick={handleEdit}>Edit</button>
-              <button onClick={handleDelete}>Delete</button>
             </div>
           )}
         </div>

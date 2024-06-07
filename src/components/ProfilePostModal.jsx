@@ -111,7 +111,45 @@ export default function ProfilePostModal({
               </button>
             </div>
           ) : (
-            thePost.description
+            <div>
+              <p>{thePost.likes.length}</p>
+              <p>{thePost.description}</p>
+              {thePost.comments.map((comment) => {
+                return (
+                  <div
+                    className="comments hover"
+                    style={{ fontSize: '1.2rem' }}
+                  >
+                    <span
+                      onClick={() => {
+                        console.log('HSFIAHASFIFSA', comment);
+                        const fetchProfileImClicking = async () => {
+                          try {
+                            const theProfile = await getProfileToSee({
+                              profile,
+                              profileId: comment.profile.id,
+                            });
+                            profile.dispatch({
+                              type: 'SET_PROFILE_IM_SEEING',
+                              theProfile: theProfile,
+                            });
+                            navigate('/profile');
+                            console.log('PrOFILe To SeE', theProfile);
+                          } catch (error) {
+                            console.log('Error:', error);
+                          }
+                        };
+                        fetchProfileImClicking();
+                      }}
+                      style={{ fontWeight: 'bold' }}
+                    >
+                      {comment.profile.user.username}{' '}
+                    </span>
+                    <span>{comment.text}</span>
+                  </div>
+                );
+              })}
+            </div>
           )}
           {thePost.profile.id === profile.state.profile.id && (
             <div>

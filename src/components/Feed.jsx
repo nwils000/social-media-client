@@ -22,7 +22,7 @@ export default function Feed() {
     };
     const intervalId = setInterval(() => {
       fetchPosts();
-    }, 5000);
+    }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);

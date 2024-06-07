@@ -87,7 +87,11 @@ export default function Register() {
               </div>
             )}
           </div>
-          <Link onClick={() => handleSubmit()} className="signup-button">
+          <Link
+            to="/login"
+            onClick={() => handleSubmit()}
+            className="signup-button"
+          >
             Create account
           </Link>
         </div>

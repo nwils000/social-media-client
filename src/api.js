@@ -174,6 +174,10 @@ export const getProfileToSee = async ({ profile, profileId }) => {
         profile_id: profileId,
       },
     });
+    profile.dispatch({
+      type: 'SET_PROFILE_IM_SEEING',
+      theProfile: response.data,
+    });
     return response.data;
   } catch (error) {
     console.log('Error with getProfileToSee api call: ', error);
